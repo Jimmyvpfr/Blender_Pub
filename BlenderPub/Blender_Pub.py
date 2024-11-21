@@ -68,7 +68,7 @@ class PublishSceneOperator(bpy.types.Operator):
         self.report({'INFO'}, f"File saved as {new_filepath}")
 
         # Open new empty scene to prevent working in _MASTER
-        bpy.ops.wm.read_factory_settings(use_empty=True)
+        bpy.ops.wm.read_homefile(use_empty=True)
         print("Switched to a new empty project to prevent editing the _MASTER file.")
 
 

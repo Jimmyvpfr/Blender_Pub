@@ -18,6 +18,14 @@ class PublishSceneOperator(bpy.types.Operator):
     bl_description = "Increments version, makes all linked objects local and saves the file as _MASTER in parent directory."
     
     def execute(self, context):
+        #switch to object mode
+        if bpy.context.mode != 'OBJECT':
+            try:
+                bpy.ops.object.mode_set(mode='OBJECT')
+            except:
+                print(f"Failed to switch to Object Mode: {e}")
+                raise RuntimeError("Script stopped because Object Mode could not be activated")
+            
         self.increment_version_save()
         bpy.ops.object.make_local(type='ALL')
         self.save_as_master_in_parent_dir()

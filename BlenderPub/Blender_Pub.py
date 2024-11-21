@@ -18,6 +18,12 @@ class PublishSceneOperator(bpy.types.Operator):
     bl_description = "Increments version, makes all linked objects local and saves the file as _MASTER in parent directory."
     
     def execute(self, context):
+        
+        # Control if filename contains _MASTER
+        if "_MASTER" in bpy.path.basename(bpy.data.filepath):
+            self.report({'ERROR'}, "Cannot publish a _MASTER file. Please open a versioned file.")
+            return {'CANCELLED'}
+
         #switch to object mode
         if bpy.context.mode != 'OBJECT':
             try:
@@ -25,7 +31,7 @@ class PublishSceneOperator(bpy.types.Operator):
             except:
                 print(f"Failed to switch to Object Mode: {e}")
                 raise RuntimeError("Script stopped because Object Mode could not be activated")
-            
+
         self.increment_version_save()
         bpy.ops.object.make_local(type='ALL')
         self.save_as_master_in_parent_dir()
@@ -68,6 +74,11 @@ class PublishSceneOperator(bpy.types.Operator):
         new_filepath = os.path.join(parent_directory, new_name + ext)
         bpy.ops.wm.save_as_mainfile(filepath=new_filepath)
         self.report({'INFO'}, f"File saved as {new_filepath}")
+
+        # Open new empty scene to prevent working in _MASTER
+        bpy.ops.wm.read_homefile(use_empty=True)
+        print("Switched to a new empty project to prevent editing the _MASTER file.")
+
 
 # Operator för att skapa en ny scen av olika typer
 class SaveSceneOperator(bpy.types.Operator):

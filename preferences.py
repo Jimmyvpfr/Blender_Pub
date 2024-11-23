@@ -45,7 +45,6 @@ class AddonPreferences(bpy.types.AddonPreferences):
     # Rita ut preferenspanelen
     def draw(self, context):
         layout = self.layout
-        layout.label(text="Minimal Addon Preferences Test")
 
         # Lägger till inställningar för updateringssystemet
         addon_updater_ops.update_settings_ui(self, context)

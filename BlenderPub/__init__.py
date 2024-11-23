@@ -10,6 +10,9 @@ bl_info = {
 import bpy
 import os
 import re
+from .preferences import AddonPreferences
+from . import addon_updater_ops
+
 
 # Operator för att publicera scenen
 class PublishSceneOperator(bpy.types.Operator):
@@ -138,14 +141,17 @@ class PublishScenePanel(bpy.types.Panel):
 
 # Registreringsfunktioner
 def register():
+    addon_updater_ops.register(bl_info)
+    bpy.utils.register_class(AddonPreferences)
     bpy.utils.register_class(PublishSceneOperator)
     bpy.utils.register_class(SaveSceneOperator)
     bpy.utils.register_class(PublishScenePanel)
-
+    
 def unregister():
     bpy.utils.unregister_class(PublishSceneOperator)
     bpy.utils.unregister_class(SaveSceneOperator)
     bpy.utils.unregister_class(PublishScenePanel)
+    bpy.utils.unregister_class(AddonPreferences)
 
 if __name__ == "__main__":
     register()

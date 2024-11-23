@@ -2,7 +2,7 @@ from . import addon_updater_ops
 import bpy
 
 class AddonPreferences(bpy.types.AddonPreferences):
-    bl_idname = "Blender Pub"
+    bl_idname = "BlenderPub"
 
     # Definiera uppdateringsrelaterade egenskaper
     auto_check_update: bpy.props.BoolProperty(
@@ -45,6 +45,7 @@ class AddonPreferences(bpy.types.AddonPreferences):
     # Rita ut preferenspanelen
     def draw(self, context):
         layout = self.layout
+        layout.label(text="Minimal Addon Preferences Test")
 
         # Lägger till inställningar för updateringssystemet
         addon_updater_ops.update_settings_ui(self, context)

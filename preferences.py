@@ -4,7 +4,7 @@ import bpy
 class AddonPreferences(bpy.types.AddonPreferences):
     bl_idname = "BlenderPub"
 
-    # Definiera uppdateringsrelaterade egenskaper
+    # Defining the updater parameters
     auto_check_update: bpy.props.BoolProperty(
         name="Auto-check for Update",
         description="If enabled, auto-check for updates using an interval",
@@ -42,9 +42,12 @@ class AddonPreferences(bpy.types.AddonPreferences):
         max=59,
     )
 
-    # Rita ut preferenspanelen
+    # Draw preference panel
     def draw(self, context):
         layout = self.layout
 
-        # Lägger till inställningar för updateringssystemet
+        box = layout.box()
+        box.label(text="Updater Settings", icon="SYSTEM")
+
+        # Add settings for the uppdater system
         addon_updater_ops.update_settings_ui(self, context)

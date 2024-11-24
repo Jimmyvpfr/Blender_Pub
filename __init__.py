@@ -2,9 +2,10 @@ bl_info = {
     "name": "Blender Pub",
     "blender": (3, 0, 0),
     "category": "Scene",
-    "version": (1, 0),
+    "version": (1, 0, 0),
     "author": "Jimmy Grafström",
-    "description": "Increments version, makes objects local and saves as _MASTER in parent directory.",
+    "description": "Tools to publish scenes and create new scenes with proper naming conventions.",
+    "tracker_url": "https://github.com/Jimmyvpfr/Blender_Pub/issues",
 }
 
 import bpy
@@ -14,7 +15,7 @@ from .preferences import AddonPreferences
 from . import addon_updater_ops
 
 
-# Operator för att publicera scenen
+# Operator for publish scene
 class PublishSceneOperator(bpy.types.Operator):
     bl_idname = "scene.publish_scene"
     bl_label = "Publish Scene"
@@ -83,7 +84,7 @@ class PublishSceneOperator(bpy.types.Operator):
         print("Switched to a new empty project to prevent editing the _MASTER file.")
 
 
-# Operator för att skapa en ny scen av olika typer
+# Operator for creating different scene types
 class SaveSceneOperator(bpy.types.Operator):
     bl_idname = "scene.save_new_scene"
     bl_label = "Create New Scene"
@@ -117,7 +118,7 @@ class SaveSceneOperator(bpy.types.Operator):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
-# Panel för att visa knappar för att skapa olika scener
+# Button panel
 class PublishScenePanel(bpy.types.Panel):
     bl_label = "Publish Scene Panel"
     bl_idname = "SCENE_PT_publish_scene"
@@ -139,7 +140,7 @@ class PublishScenePanel(bpy.types.Panel):
         op = layout.operator("scene.save_new_scene", text="Create New LIGHTING Scene")
         op.scene_type = "LIGHTING"
 
-# Registreringsfunktioner
+# Registreringsfunctions
 def register():
     addon_updater_ops.register(bl_info)
     bpy.utils.register_class(AddonPreferences)

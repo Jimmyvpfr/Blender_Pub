@@ -2,7 +2,7 @@ bl_info = {
     "name": "Blender Pub",
     "blender": (3, 0, 0),
     "category": "Scene",
-    "version": (1, 0, 0),
+    "version": (1, 0, 1),
     "author": "Jimmy Grafström",
     "description": "Tools to publish scenes and create new scenes with proper naming conventions.",
     "tracker_url": "https://github.com/Jimmyvpfr/Blender_Pub/issues",
